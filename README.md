@@ -1,132 +1,120 @@
-明白啦 👍。我把 README 再给你整理一次，这次用 **简洁格式**，避免行内太多修饰，你就可以一键复制。
+# 🛠️ E-Commerce Data Engineering Project
+
+An end-to-end **data engineering pipeline** built on the [Olist Brazilian E-Commerce Dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce).  
+Covers the full workflow: **raw data → ingestion → transformation (dbt) → warehouse → analytics**.
 
 ---
 
-# README.md (推荐模板)
+## 📂 Project Structure
 
-```markdown
-# Data Engineering Project (Olist Demo)
-
-This project demonstrates an **end-to-end data engineering pipeline** using the [Olist Brazilian E-Commerce Dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce).
-
----
-
-## Project Structure
-```
-
-data-engineering-project/
+e-commerce-data-engineering/
 ├── data/
-│ ├── raw/ # Full Olist dataset (42MB, gitignored)
-│ ├── sample/ # Small subset for demo (committed)
+│ ├── raw/ # Full dataset (42MB, ignored by git)
+│ ├── sample/ # 6 sampled CSV tables (committed)
 │ ├── staging/ # Intermediate landing zone (ignored)
-│ └── processed/ # Cleaned / analytics-ready data (ignored)
-├── src/ # Python source code (generation, ingestion, utils)
-├── jobs/ # Executable scripts
+│ └── processed/ # Analytics-ready exports (ignored)
+├── src/ # Python source (utils, io, ingestion, generation)
+├── jobs/ # CLI entry scripts (generate, ingest, etc.)
 ├── airflow/ # Airflow DAGs
-├── dbt_project/ # dbt models, sources, seeds, snapshots
-├── notebooks/ # Exploration
+├── dbt_project/ # dbt models, tests, snapshots, seeds
+├── notebooks/ # Exploratory analysis
 ├── tests/ # Unit tests
 └── README.md
 
-```
+---
+
+## 📊 Architecture
+
+Sample Data (CSV)
+→ Ingestion (Python + SQLAlchemy)
+→ Postgres raw schema
+→ Transformation (dbt staging + marts)
+→ Analytics schema
+→ Documentation & lineage (dbt docs)
+→ Dashboard (Metabase / Superset)
 
 ---
 
-## Architecture
+## 🔧 Tech Stack
 
-Pipeline flow:
-
-```
-
-Raw Data (Olist)
-→ Ingestion (Python + Airflow)
-→ Staging DB (Postgres)
-→ Transformation (dbt)
-→ Analytics Warehouse (analytics schema)
-→ Visualization (Metabase / Superset)
-
-````
+- **Python**: pandas, SQLAlchemy, psycopg2, Faker, dotenv
+- **Airflow**: orchestration (DAGs in `airflow/dags/`)
+- **dbt**: transformations, testing, lineage docs
+- **Postgres**: warehouse (via Docker container)
+- **Metabase / Superset**: dashboard & visualization
 
 ---
 
-## Tech Stack
+## 🚀 Quickstart
 
-- Python (pandas, sqlalchemy, psycopg, faker)
-- Airflow for orchestration
-- dbt for transformations, testing, lineage docs
-- Postgres / Redshift as warehouse
-- Metabase / Superset for dashboards
-
----
-
-## Quickstart
-
-### 1. Install dependencies (uv)
-```bash
-uv venv --seed --python 3.11 .venv
-uv sync
-````
-
-### 2. Generate sample data
+### 1. Start Postgres (via Docker)
 
 ```bash
-uv run python jobs/generate_raw_data.py
+docker run --name postgres-olist \
+  -e POSTGRES_USER=calvin \
+  -e POSTGRES_PASSWORD=calvin \
+  -e POSTGRES_DB=olist \
+  -p 5432:5432 \
+  -d postgres:15
 ```
 
-### 3. Ingest to Postgres
+Create schemas:
+CREATE SCHEMA raw;
+CREATE SCHEMA staging;
+CREATE SCHEMA analytics;
 
-```bash
-uv run python jobs/ingest_to_db.py
-```
+2. Install dependencies (uv)
+   uv venv --seed --python 3.11 .venv
+   uv sync
 
-### 4. Run dbt
+3. Ingest sample data into Postgres
+   uv run python jobs/ingest_to_db.py
 
-```bash
-uv run dbt --project-dir dbt_project deps
-uv run dbt --project-dir dbt_project build
-uv run dbt --project-dir dbt_project docs generate
-```
+4. Run dbt
+   uv run dbt --project-dir dbt_project deps
+   uv run dbt --project-dir dbt_project debug
+   uv run dbt --project-dir dbt_project build
+   uv run dbt --project-dir dbt_project docs generate
+   uv run dbt --project-dir dbt_project docs serve
+
+⚠️ Data
+
+Full dataset (42MB) → downloaded from Kaggle, stored in data/raw/, gitignored
+
+Sample dataset (~6 CSVs) → included in data/sample/olist/, used for quick demo
+
+Tables: orders, customers, products, order_items, order_payments, order_reviews
+
+✅ Current Progress
+
+✔️ Project skeleton established
+
+✔️ Sample data ingested into Postgres (raw schema)
+
+✔️ dbt connected and stg_orders built in staging schema
+
+✔️ Basic tests (not_null, unique) passing
+
+📈 Next Steps
+
+Complete staging models for all 6 tables
+
+Add marts (fact_orders, dim_customers, dim_products)
+
+Add relationship tests (foreign key checks)
+
+Generate dbt lineage docs and add screenshots to README
+
+Build dashboard (Metabase / Superset)
+
+📜 License
+
+Data provided by Olist
+.
+Please review Kaggle’s license terms before reuse.
 
 ---
 
-## Data
+这样一份 README 能完整反映你现在的进度（已经 ingestion + dbt 跑通），同时也告诉别人怎么复现和接下来要做什么。
 
-- Full dataset (42MB) is stored in `data/raw/` but **is not committed** (gitignored).
-- A small subset is provided in `data/sample/` for demo and quick runs.
-- To use full data, download from Kaggle and place under `data/raw/olist/`.
-
----
-
-## Dashboard Outputs
-
-Planned KPIs:
-
-- Daily sales trend
-- Top 10 products
-- Customer segmentation
-- Inventory alerts
-
----
-
-## Next Steps
-
-- [ ] Extend ingestion scripts (CSV + API simulation)
-- [ ] Add staging models for customers, products, payments
-- [ ] Build star schema (`fact_orders`, `dim_products`, `dim_customers`)
-- [ ] Create dashboard in Metabase/Superset
-
----
-
-## License
-
-Data provided by [Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce).
-Check Kaggle license terms before reuse.
-
-```
-
----
-
-这样你就能直接复制到仓库用了。
-
-要不要我顺便帮你写一个 **git 操作指令合集**，把已经推上去的 raw data 从远程仓库历史里彻底清掉？
-```
+要不要我帮你再生成一张 **架构图（更新版，包含 raw → staging → marts → docs）**，你可以加到 README 里展示？
