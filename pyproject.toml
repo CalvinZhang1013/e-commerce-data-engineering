@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "e-commerce-data-engineering"
+version = "0.1.0"
+description = "End-to-end data engineering pipeline using Olist dataset"
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+
+dependencies = [
+  "pandas>=2.2",
+  "sqlalchemy>=2.0",
+  "psycopg2-binary>=2.9",
+  "python-dotenv>=1.0",
+  "faker>=24",
+  "dbt-postgres>=1.8",
+]
+
+[project.optional-dependencies]
+dev = [
+  "jupyter>=1.0",
+  "black>=24.0",
+  "ruff>=0.5",
+  "pre-commit>=3.6",
+]
+
+[tool.black]
+line-length = 100

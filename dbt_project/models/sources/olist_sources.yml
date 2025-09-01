@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: olist
+    schema: raw
+    tables:
+      - name: orders
+        loaded_at_field: order_purchase_timestamp
+      - name: customers
+      - name: products
+      - name: order_items
+      - name: order_payments
+      - name: order_reviews
