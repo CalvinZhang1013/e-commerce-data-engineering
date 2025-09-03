@@ -1,0 +1,8 @@
+{{ config(materialized='table', schema='analytics') }}
+
+select
+  customer_id,
+  customer_unique_id,
+  customer_city,
+  customer_state
+from {{ ref('stg_customers') }}
