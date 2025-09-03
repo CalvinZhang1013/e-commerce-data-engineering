@@ -1,12 +1,12 @@
-# 📄 README.md
+## 📄 README.md
 
-```markdown
 # 🛠️ E-Commerce Data Engineering Project
 
 An end-to-end **data engineering pipeline** built on the [Olist Brazilian E-Commerce Dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce).  
 Covers the full workflow: **raw data → ingestion → transformation (dbt) → warehouse → analytics → lineage → dashboard**.
 
 ## 📊 Architecture
+
 ```
 
 Sample Data (CSV)
@@ -59,11 +59,12 @@ e-commerce-data-engineering/
 ├── pyproject.toml # Dependencies (uv/Poetry compatible)
 └── README.md
 
-````
+```
 
 ## 🚀 Quickstart
 
 ### 1. Start Postgres (via Docker)
+
 ```bash
 docker run --name postgres-olist \
   -e POSTGRES_USER=calvin \
@@ -71,7 +72,7 @@ docker run --name postgres-olist \
   -e POSTGRES_DB=olist \
   -p 5432:5432 \
   -d postgres:15
-````
+```
 
 Create schemas:
 
