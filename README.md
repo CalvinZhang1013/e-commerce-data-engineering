@@ -122,7 +122,7 @@ uv run dbt docs serve --project-dir dbt_project
 
 Example Lineage graph (from `fact_orders`):
 
-![Lineage graph](assets/lineage_fact_orders.png)
+![Lineage graph](assets/lineage_file.png)
 
 ## ✅ Current Progress
 
