@@ -6,8 +6,6 @@
 An end-to-end **data engineering pipeline** built on the [Olist Brazilian E-Commerce Dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce).  
 Covers the full workflow: **raw data → ingestion → transformation (dbt) → warehouse → analytics → lineage → dashboard**.
 
----
-
 ## 📊 Architecture
 ```
 
@@ -21,8 +19,6 @@ Sample Data (CSV)
 → Dashboard (Metabase / Superset)
 
 ```
-
----
 
 ## 📂 Project Structure
 
@@ -64,8 +60,6 @@ e-commerce-data-engineering/
 └── README.md
 
 ````
-
----
 
 ## 🚀 Quickstart
 
@@ -110,8 +104,6 @@ uv run dbt docs generate --project-dir dbt_project
 uv run dbt docs serve --project-dir dbt_project
 ```
 
----
-
 ## 📜 Data
 
 | Table            | Rows (sample) | Description          |
@@ -125,15 +117,11 @@ uv run dbt docs serve --project-dir dbt_project
 
 > Note: The full dataset (42MB) is **not committed**. Only the sample dataset is included for demo purposes.
 
----
-
 ## 🔗 Data Lineage
 
 Example Lineage graph (from `fact_orders`):
 
 ![Lineage graph](assets/lineage_fact_orders.png)
-
----
 
 ## ✅ Current Progress
 
@@ -146,8 +134,6 @@ Example Lineage graph (from `fact_orders`):
 - ✔️ Custom macros fixed → clean `staging` / `analytics` schemas
 - ✔️ dbt lineage docs generated
 
----
-
 ## 📈 Next Steps
 
 - [ ] Add more relationship tests (`fact_orders` → `dim_customers`, `dim_products`)
@@ -155,8 +141,6 @@ Example Lineage graph (from `fact_orders`):
 - [ ] Connect BI tool (Metabase / Superset)
 - [ ] Build dashboards (daily sales, top products, payment methods)
 - [ ] Optimize pipelines & orchestrate with Airflow
-
----
 
 ## 📜 License
 
