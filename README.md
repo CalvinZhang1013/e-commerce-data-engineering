@@ -122,6 +122,10 @@ Example Lineage graph (from `fact_orders`):
 
 ![Lineage graph](assets/lineage_file.png)
 
+## 📈 Sample Dashboard
+
+![Dashboard](assets/dashboard.png)
+
 ## ✅ Current Progress
 
 - ✔️ Olist sample data ingested → Postgres raw schema

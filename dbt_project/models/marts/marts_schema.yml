@@ -17,3 +17,14 @@ models:
         tests: [not_null]
       - name: customer_id
       - name: product_id
+
+  - name: fact_payments
+    columns:
+      - name: order_id
+  - name: fact_reviews
+    columns:
+      - name: order_id
+  - name: dim_sellers
+    columns:
+      - name: seller_id
+        tests: [not_null, unique]
