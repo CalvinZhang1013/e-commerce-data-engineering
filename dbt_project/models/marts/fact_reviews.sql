@@ -1,11 +1,7 @@
 {{ config(materialized='table', schema='analytics') }}
 
-select
-  review_id,
-  order_id,
-  review_score,
-  review_comment_title,
-  review_comment_message,
-  creation_ts,
-  answer_ts
-from {{ ref('stg_order_reviews') }}
+-- fact_reviews.sql 同理
+with r as (select * from {{ ref('stg_order_reviews') }}),
+     o as (select order_id from {{ ref('fact_orders') }})
+select r.* from r join o using (order_id)
+
